@@ -141,10 +141,12 @@ namespace WindowsLayoutSnapshot {
             var list = new List<Snapshot>();
             list.Add(m_snapshot);
             var snapshotsOldestFirst = list;
+
             var newMenuItems = new List<ToolStripItem>();
 
-            newMenuItems.Add(quitToolStripMenuItem);
-            newMenuItems.Add(snapshotListEndLine);
+            /*
+
+            //newMenuItems.Add(snapshotListEndLine);
 
             var maxNumMonitors = 0;
             var maxNumMonitorPixels = 0L;
@@ -222,6 +224,9 @@ namespace WindowsLayoutSnapshot {
                     }
                 }
             }
+            */
+
+            newMenuItems.Add(quitToolStripMenuItem);
 
             trayMenu.Items.Clear();
             trayMenu.Items.AddRange(newMenuItems.ToArray());
