@@ -1,4 +1,4 @@
-WindowsLayoutSnapshot
+DisplayPort FIX
 =====================
 
 # Edited by Federico Giuggioloni
@@ -13,7 +13,16 @@ All the program does is:
 
 Enjoy having a monitor that works the way it's supposed to!
 
+## TODO
+
+- Remove hardcoded resolutions.
+- Find a way to avoid having to sleep before restoring snapshot
+- If the sleep cannot be avoided, provide the user with a way to choose sleep amount in seconds
+
 # Old README.md
+
+WindowsLayoutSnapshot
+=====================
 
 Ever switch monitor configs on your laptop and all of your windows are squished down in size and in the wrong position?  Ever want to minimize all windows but save their layouts and min-max'ed states for later?
 
