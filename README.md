@@ -9,7 +9,7 @@ Currently hardcoded for my dual monitor setup: 3840x2160 (set as primary) and 19
 All the program does is:
 
 - If the resolution was changed to 1920x1080, this means the displayport monitor was turned off -> Take a Snapshot
-- If the resolution was changed to 3840x2160, this meand the displayport monitor was turned on -> Restore Snapshot (with a 5 second delay due to windows taking some time to reconfigure windows)
+- If the resolution was changed to 3840x2160, this meand the displayport monitor was turned on -> Restore Snapshot (with a 5 second delay due to windows taking some time to reconfigure the new monitor)
 
 Enjoy having a monitor that works the way it's supposed to!
 
