@@ -16,7 +16,7 @@ namespace WindowsLayoutSnapshot {
     public partial class TrayIconForm : Form {
 
         private Timer m_snapshotTimer = new Timer();
-        private List<Snapshot> m_snapshots = new List<Snapshot>();
+        private Snapshot m_snapshot = null;
         private Snapshot m_menuShownSnapshot = null;
         private Padding? m_originalTrayMenuArrowPadding = null;
         private Padding? m_originalTrayMenuTextPadding = null;
@@ -36,6 +36,40 @@ namespace WindowsLayoutSnapshot {
             TakeSnapshot(false);
         }
 
+        protected override void WndProc(ref Message m)
+        {
+            const int WM_DISPLAYCHANGE = 0x007e;
+
+            // Listen for operating system messages. 
+            switch (m.Msg)
+            {
+                case WM_DISPLAYCHANGE:
+                    Int32 lparam = m.LParam.ToInt32();
+                    // The WParam value is the new bit depth
+                    uint width = (uint)(lparam & 0xffff);
+                    uint height = (uint)(lparam >> 16);
+                    Console.WriteLine("Display changed! " + width + "x" + height);
+                    if(width == 1920 && height == 1080)
+                    {
+                        Console.WriteLine("SAVING SNAPSHOT");
+                        // Save snapshot
+                        TakeSnapshot(false);
+                    }
+                    else if(width == 3840 && height == 2160)
+                    {
+                        Console.WriteLine("RESTORING SNAPSHOT");
+                        // Restore snapshot
+                        if (m_snapshot != null)
+                        {
+                            System.Threading.Thread.Sleep(5000);
+                            m_snapshot.Restore(null, null);
+                        }
+                    }
+                    break;
+            }
+            base.WndProc(ref m);
+        }
+
         private void snapshotTimer_Tick(object sender, EventArgs e) {
             TakeSnapshot(false);
         }
@@ -45,12 +79,14 @@ namespace WindowsLayoutSnapshot {
         }
 
         private void TakeSnapshot(bool userInitiated) {
-            m_snapshots.Add(Snapshot.TakeSnapshot(userInitiated));
+            //m_snapshots.Add(Snapshot.TakeSnapshot(userInitiated));
+            m_snapshot = Snapshot.TakeSnapshot(userInitiated);
             UpdateRestoreChoicesInMenu();
         }
 
         private void clearSnapshotsToolStripMenuItem_Click(object sender, EventArgs e) {
-            m_snapshots.Clear();
+            //m_snapshots.Clear();
+            m_snapshot = null;
             UpdateRestoreChoicesInMenu();
         }
 
@@ -102,7 +138,9 @@ namespace WindowsLayoutSnapshot {
             // construct the new list of menu items, then populate them
             // this function is idempotent
 
-            var snapshotsOldestFirst = new List<Snapshot>(CondenseSnapshots(m_snapshots, 20));
+            var list = new List<Snapshot>();
+            list.Add(m_snapshot);
+            var snapshotsOldestFirst = list;
             var newMenuItems = new List<ToolStripItem>();
 
             newMenuItems.Add(quitToolStripMenuItem);
