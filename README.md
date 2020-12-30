@@ -18,3 +18,15 @@ Enjoy having a monitor that works the way it's supposed to!
 - Remove hardcoded resolutions.
 - Find a way to avoid having to sleep before restoring snapshot
 - If the sleep cannot be avoided, provide the user with a way to choose sleep amount in seconds
+
+
+From https://github.com/adamsmith/WindowsLayoutSnapshot/issues/8:
+Hi,
+
+I see this project is not maintained for years.
+
+But there are a lot of good forks, my suggestion is to select/create a new fork, and do all the changes from the other forks there.
+
+Then create a community and so on.
+
+See the forks here: https://techgaun.github.io/active-forks/index.html#https://github.com/adamsmith/WindowsLayoutSnapshot
